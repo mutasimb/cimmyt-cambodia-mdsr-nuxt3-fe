@@ -17,7 +17,12 @@ const
     itemsAdm3
   } = storeToRefs(storeProviders),
 
-  machines = ref(["Lunheng Seeder", "Thai Kid Seeder", "Drum Seeder", "Eli seeder"]),
+  machines = ref([
+    { value: "Lonheng Seeder", label: "Lunheng Seeder" },
+    { value: "Thai Kit", label: "Thai Kid Seeder" },
+    { value: "Drum Seeder", label: "Drum Seeder" },
+    { value: "Eli Seeder", label: "Eli seeder" }
+  ]),
 
   onExit = () => { isFilterOn.value = false; };
 </script>
@@ -66,7 +71,7 @@ const
       </v-expansion-panel-title>
       <v-expansion-panel-text>
         <v-checkbox v-for="machine in machines" :key="machine" color="primary-700" density="compact"
-          v-model="filterMachine" :label="$t(machine)" :value="machine" />
+          v-model="filterMachine" :label="$t(machine.label)" :value="machine.value" />
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
