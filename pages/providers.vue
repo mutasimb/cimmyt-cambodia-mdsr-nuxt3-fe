@@ -18,7 +18,7 @@ const
 
   storeGeo = useGeoStore(),
   storeProviders = useProvidersStore(),
-  { providersList, loading, selected, drawerLeft, drawerDetails, drawerFilter } = storeToRefs(storeProviders),
+  { providersList, loading, selected, drawerLeft, drawerDetails, isFilterOn } = storeToRefs(storeProviders),
 
   // widthCardsDrawer = computed(
   //   () => xs.value ? '100%'
@@ -26,10 +26,7 @@ const
   //       : '616'
   // ),
 
-  onClickFilter = () => {
-    if (!drawerFilter.value && selected.value) selected.value = null;
-    drawerFilter.value = !drawerFilter.value;
-  };
+  onClickFilter = () => { isFilterOn.value = true; };
 
 storeProviders.getProviders();
 
@@ -50,23 +47,30 @@ onBeforeUnmount(() => { storeGeo.stopGeo(); });
   <v-container class="fill-height flex-column align-stretch pa-0" fluid>
     <v-navigation-drawer v-if="!loading && providersList && providersList.length" id="provider-cards-drawer"
       v-model="drawerLeft" class="provider-nav py-6 px-4" width="584">
+
       <v-sheet :height="40" :width="40"
         class="provider-left-darwer-toggle-btn d-flex justify-center align-center rounded-lg cursor-pointer"
         @click="() => { drawerLeft = false }">
         <v-img src="/img/direction-left-rectangle.png" height="24" width="24" />
       </v-sheet>
 
-      <div class="d-flex justify-space-between">
-        <div class="h-300-heavy text-primary-neutral-900">{{ $t('p1_sp_title') }}</div>
-        <v-sheet :height="40" :width="40" class="ml-4 d-flex justify-center align-center rounded-lg cursor-pointer"
-          style="border: 1px solid rgb(171, 171, 171);" @click="onClickFilter">
-          <v-img src="/img/providers/btn-filter.png" :height="24" :width="24" />
-        </v-sheet>
-      </div>
+      <template v-if="isFilterOn">
+        <ProvidersFilter />
+      </template>
 
-      <!-- <ProvidersTypeBtnToggle class="my-6"/> -->
+      <template v-else>
+        <div class="d-flex justify-space-between">
+          <div class="h-300-heavy text-primary-neutral-900">{{ $t('p1_sp_title') }}</div>
+          <v-sheet :height="40" :width="40" class="ml-4 d-flex justify-center align-center rounded-lg cursor-pointer"
+            style="border: 1px solid rgb(171, 171, 171);" @click="onClickFilter">
+            <v-img src="/img/providers/btn-filter.png" :height="24" :width="24" />
+          </v-sheet>
+        </div>
+        <!-- <ProvidersTypeBtnToggle class="my-6"/> -->
 
-      <ProvidersCards class="my-6" />
+        <ProvidersCards class="my-6" />
+      </template>
+
     </v-navigation-drawer>
 
     <v-navigation-drawer v-if="!drawerLeft" id="toggle-provider-cards-drawer" class="provider-nav pa-0" width="16">
@@ -89,9 +93,6 @@ onBeforeUnmount(() => { storeGeo.stopGeo(); });
       <NuxtPage />
     </v-navigation-drawer>
 
-    <!-- <v-navigation-drawer id="provider-filter-drawer" v-model="drawerFilter" location="right" width="290">
-      <ProvidersFilter />
-    </v-navigation-drawer> -->
   </v-container>
 </template>
 

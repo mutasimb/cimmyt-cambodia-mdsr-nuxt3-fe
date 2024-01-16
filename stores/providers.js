@@ -10,8 +10,9 @@ export const useProvidersStore = defineStore('providers', () => {
     providersList = ref([]),
     drawerLeft = ref(true),
     drawerDetails = ref(false),
-    drawerFilter = ref(false),
     dialogServiceRequest = ref(false),
+
+    isFilterOn = ref(false),
 
     getProviders = async () => {
       const { data, pending } = await useFetch('/users/providers', {
@@ -89,9 +90,10 @@ export const useProvidersStore = defineStore('providers', () => {
 
     drawerLeft,
     drawerDetails,
-    drawerFilter,
     dialogServiceRequest,
-
+    
+    isFilterOn,
+    
     filterAdm1,
     filterAdm2,
     filterAdm3,

@@ -7,7 +7,7 @@ const
   storeProviders = useProvidersStore(),
 
   {
-    drawerFilter,
+    isFilterOn,
     filterMachine,
     filterAdm1,
     filterAdm2,
@@ -19,7 +19,7 @@ const
 
   machines = ref(['Drum Seeder', 'Lonheng Seeder', 'Eli Seeder', 'Thai Kit']),
 
-  onExit = () => { drawerFilter.value = false; };
+  onExit = () => { isFilterOn.value = false; };
 </script>
 
 <template>
