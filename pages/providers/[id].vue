@@ -33,16 +33,11 @@ const
   }),
 
   onExit = () => {
-    selected.value = null;
+    selected.value = false;
   },
-  // onExit = () => {
-  //   navigateTo("/providers/");
-  // },
   onRequest = () => {
     dialogServiceRequest.value = true;
   };
-
-// console.log(route)
 </script> 
 
 <template>

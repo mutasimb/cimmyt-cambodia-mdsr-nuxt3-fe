@@ -19,10 +19,6 @@ const
   onSelect = id => {
     selected.value = id;
   };
-// onSelect = async id => {
-//   console.log(id);
-//   navigateTo({ path: `/providers/${id}` });
-// };
 </script>
 
 <template>

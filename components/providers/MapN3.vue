@@ -15,7 +15,7 @@ const
     () => providersListFiltered.value.filter(provider => !(!provider.lon || !provider.lat))
   ),
 
-  onMarkerClick = id => { selected.value = id };
+  onMarkerClick = id => { selected.value = id; };
 </script>
 
 <template>

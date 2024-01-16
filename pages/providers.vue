@@ -20,11 +20,11 @@ const
   storeProviders = useProvidersStore(),
   { providersList, loading, selected, drawerLeft, drawerDetails, drawerFilter } = storeToRefs(storeProviders),
 
-  widthCardsDrawer = computed(
-    () => xs.value ? '100%'
-      : mdAndDown.value ? '360'
-        : '616'
-  ),
+  // widthCardsDrawer = computed(
+  //   () => xs.value ? '100%'
+  //     : mdAndDown.value ? '360'
+  //       : '616'
+  // ),
 
   onClickFilter = () => {
     if (!drawerFilter.value && selected.value) selected.value = null;
@@ -36,31 +36,20 @@ storeProviders.getProviders();
 watch(
   selected,
   val => {
-    if (val) {
-      if (drawerFilter.value) drawerFilter.value = false;
-      drawerDetails.value = true;
-      navigateTo({ path: `/providers/${val}` });
-    } else {
-      console.log('unselected')
-      drawerDetails.value = false;
-      navigateTo({ path: `/providers` });
-    }
+    drawerDetails.value = val ? true : false;
+    navigateTo({ path: val ? `/providers/${val}` : '/providers' })
   },
-  { deep: true, immediate: true }
+  { immediate: true }
 );
 
 storeGeo.getGeo();
-onBeforeUnmount(() => {
-  storeGeo.stopGeo();
-});
-
-if (route.params?.id) selected.value = route.params.id;
+onBeforeUnmount(() => { storeGeo.stopGeo(); });
 </script>
 
 <template>
   <v-container class="fill-height flex-column align-stretch pa-0" fluid>
     <v-navigation-drawer v-if="!loading && providersList && providersList.length" id="provider-cards-drawer"
-      v-model="drawerLeft" class="provider-nav py-6 px-4" :width="widthCardsDrawer">
+      v-model="drawerLeft" class="provider-nav py-6 px-4" width="584">
       <v-sheet :height="40" :width="40"
         class="provider-left-darwer-toggle-btn d-flex justify-center align-center rounded-lg cursor-pointer"
         @click="() => { drawerLeft = false }">
@@ -100,9 +89,9 @@ if (route.params?.id) selected.value = route.params.id;
       <NuxtPage />
     </v-navigation-drawer>
 
-    <v-navigation-drawer id="provider-filter-drawer" v-model="drawerFilter" location="right" width="290">
+    <!-- <v-navigation-drawer id="provider-filter-drawer" v-model="drawerFilter" location="right" width="290">
       <ProvidersFilter />
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
   </v-container>
 </template>
 
@@ -113,6 +102,10 @@ if (route.params?.id) selected.value = route.params.id;
 
 #toggle-provider-cards-drawer {
   transform: translateX(0) !important;
+}
+
+#provider-cards-drawer {
+  max-width: calc(100% - 56px) !important;
 }
 
 .provider-left-darwer-toggle-btn,
