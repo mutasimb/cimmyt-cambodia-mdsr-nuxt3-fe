@@ -1,28 +1,15 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
-import { useFormProfileStore } from '@/stores/form-profile';
 
-const
-  route = useRoute(),
-  nuxtApp = useNuxtApp(),
+const storeAuth = useAuthStore();
 
-  storeAuth = useAuthStore(),
-  storeFormProfile = useFormProfileStore();
-  
 storeAuth.getToken();
-
-nuxtApp.hook('page:finish', () => {
-  if (route.path === '/profile') storeFormProfile.watchGeo();
-});
-nuxtApp.hook('page:start', () => {
-  if (route.path === '/profile') storeFormProfile.watchGeoStop();
-});
 </script>
 
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
