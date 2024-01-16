@@ -17,14 +17,14 @@ const
     itemsAdm3
   } = storeToRefs(storeProviders),
 
-  machines = ref(['Drum Seeder', 'Lonheng Seeder', 'Eli Seeder', 'Thai Kit']),
+  machines = ref(["Lunheng Seeder", "Thai Kid Seeder", "Drum Seeder", "Eli seeder"]),
 
   onExit = () => { isFilterOn.value = false; };
 </script>
 
 <template>
   <div class="d-flex flex-row justify-space-between align-center pa-4">
-    <div class="h-300-heavy text-primary-neutral-900">Filter</div>
+    <div class="h-300-heavy text-primary-neutral-900">{{ $t('Filter') }}</div>
 
     <v-sheet class="cursor-pointer" :height="24" :width="24" @click="onExit">
       <v-img src="/img/remove.png" :height="24" :width="24" />
@@ -49,24 +49,24 @@ const
     </v-expansion-panel> -->
     <v-expansion-panel>
       <v-expansion-panel-title>
-        <div class="p-100-light">Area</div>
+        <div class="p-100-light">{{ $t('Area') }}</div>
       </v-expansion-panel-title>
       <v-expansion-panel-text>
-        <v-select v-model="filterAdm1" color="primary-700" label="Province" density="comfortable" clearable
+        <v-select v-model="filterAdm1" color="primary-700" :label="$t('Province')" density="comfortable" clearable
           variant="outlined" :items="itemsAdm1" @update:model-value="() => { filterAdm2 = null; filterAdm3 = null; }" />
-        <v-select v-model="filterAdm2" color="primary-700" label="District" density="comfortable" clearable
+        <v-select v-model="filterAdm2" color="primary-700" :label="$t('District')" density="comfortable" clearable
           variant="outlined" :items="itemsAdm2" @update:model-value="() => { filterAdm3 = null; }" />
-        <v-select v-model="filterAdm3" color="primary-700" label="Commune / Township" density="comfortable" clearable
+        <v-select v-model="filterAdm3" color="primary-700" :label="$t('Commune')" density="comfortable" clearable
           variant="outlined" :items="itemsAdm3" />
       </v-expansion-panel-text>
     </v-expansion-panel>
     <v-expansion-panel>
       <v-expansion-panel-title>
-        <div class="p-100-light">Machine</div>
+        <div class="p-100-light">{{ $t('Machines') }}</div>
       </v-expansion-panel-title>
       <v-expansion-panel-text>
         <v-checkbox v-for="machine in machines" :key="machine" color="primary-700" density="compact"
-          v-model="filterMachine" :label="machine" :value="machine" />
+          v-model="filterMachine" :label="$t(machine)" :value="machine" />
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

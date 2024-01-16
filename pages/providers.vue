@@ -1,5 +1,4 @@
 <script setup>
-import { reloadNuxtApp } from "nuxt/app";
 import { storeToRefs } from 'pinia';
 import { useDisplay } from 'vuetify';
 
@@ -13,8 +12,7 @@ import { useGeoStore } from '@/stores/geolocation';
 // })
 
 const
-  route = useRoute(),
-  { mdAndDown, xs } = useDisplay(),
+  { smAndDown } = useDisplay(),
 
   storeGeo = useGeoStore(),
   storeProviders = useProvidersStore(),
@@ -33,8 +31,17 @@ storeProviders.getProviders();
 watch(
   selected,
   val => {
-    drawerDetails.value = val ? true : false;
-    navigateTo({ path: val ? `/providers/${val}` : '/providers' })
+    navigateTo({ path: val ? `/providers/${val}` : '/providers' });
+    if (val) {
+      if (smAndDown.value) {
+        drawerLeft.value = false;
+        setTimeout(() => { drawerDetails.value = true; }, 250);
+      } else {
+        drawerDetails.value = true;
+      }
+    } else {
+      drawerDetails.value = false;
+    }
   },
   { immediate: true }
 );
@@ -103,6 +110,10 @@ onBeforeUnmount(() => { storeGeo.stopGeo(); });
 
 #toggle-provider-cards-drawer {
   transform: translateX(0) !important;
+}
+
+#provider-detail-drawer {
+  max-width: 100% !important;
 }
 
 #provider-cards-drawer {

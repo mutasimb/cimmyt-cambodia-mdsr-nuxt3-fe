@@ -33,7 +33,7 @@ const
   }),
 
   onExit = () => {
-    selected.value = false;
+    selected.value = null;
   },
   onRequest = () => {
     dialogServiceRequest.value = true;
