@@ -39,19 +39,6 @@ const
   <v-divider />
 
   <v-expansion-panels id="provider-filter-panels" variant="accordion" multiple>
-    <!-- <v-expansion-panel>
-      <v-expansion-panel-title>
-        <div class="p-100-light">Distance</div>
-      </v-expansion-panel-title>
-      <v-expansion-panel-text>
-        <v-radio-group v-model="filterDistance" density="comfortable" color="primary-700">
-          <v-radio class="p-100-light" label="All" value=""></v-radio>
-          <v-radio class="p-100-light" label="< 5 km" value="5km"></v-radio>
-          <v-radio class="p-100-light" label="< 10 km" value="10km"></v-radio>
-          <v-radio class="p-100-light" label="< 15 km" value="15km"></v-radio>
-        </v-radio-group>
-      </v-expansion-panel-text>
-    </v-expansion-panel> -->
     <v-expansion-panel>
       <v-expansion-panel-title>
         <div class="p-100-light">{{ $t('Area') }}</div>
