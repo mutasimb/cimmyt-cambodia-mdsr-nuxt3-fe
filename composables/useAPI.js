@@ -1,14 +1,10 @@
 import axios from 'axios';
 
 export default function () {
-  const
-    token = useGetStorage('token'),
-    serverURL = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:9001'
-      : 'https://mdsr-server-2.onrender.com';
+  const token = useGetStorage('token');
 
   return axios.create({
-    baseURL: `${ serverURL }/api`,
+    baseURL: `${ useServer() }/api`,
     headers: token ? {
       'x-auth-token': 'Bearer ' + token
     } : {}
