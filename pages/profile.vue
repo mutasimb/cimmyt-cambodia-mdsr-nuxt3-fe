@@ -2,10 +2,10 @@
 import { storeToRefs } from 'pinia';
 
 import { useFormProfileStore } from '@/stores/form-profile';
-// import { useGeoStore } from '@/stores/geolocation';
+import { useGeoStore } from '@/stores/geolocation';
 
 const
-  // storeGeo = useGeoStore(),
+  storeGeo = useGeoStore(),
   storeFormProfile = useFormProfileStore(),
   { uType } = storeToRefs(storeFormProfile),
 
@@ -15,10 +15,10 @@ storeFormProfile.getBasic();
 storeFormProfile.getField();
 storeFormProfile.getMachine();
 
-// storeGeo.getGeo();
-// onBeforeUnmount(() => {
-//   storeGeo.stopGeo();
-// });
+storeGeo.getGeo();
+onBeforeUnmount(() => {
+  storeGeo.stopGeo();
+});
 </script>
 
 <template>

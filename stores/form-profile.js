@@ -17,6 +17,7 @@ export const useFormProfileStore = defineStore('form-profile', {
     adm2: null,
     adm3: null,
     address: '',
+    details: '',
     lon: null,
     lat: null,
 
@@ -69,6 +70,7 @@ export const useFormProfileStore = defineStore('form-profile', {
       adm2: state.adm2,
       adm3: state.adm3,
       address: state.address,
+      details: state.details,
       lon: state.lon,
       lat: state.lat,
       fields: [state.field],
@@ -113,6 +115,7 @@ export const useFormProfileStore = defineStore('form-profile', {
       this.adm2 = userData.adm2;
       this.adm3 = userData.adm3;
       this.address = userData.address;
+      this.details = userData.details;
 
       this.lon = userData.lon;
       this.lat = userData.lat;
@@ -144,6 +147,7 @@ export const useFormProfileStore = defineStore('form-profile', {
         this.machine.name = userData.machines[0].name;
         this.machine.description = userData.machines[0].description;
         this.machine.manufacturer = userData.machines[0].manufacturer;
+        this.machine.price = userData.machines[0].price;
       }
     },
     save () {

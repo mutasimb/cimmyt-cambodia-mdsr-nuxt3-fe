@@ -8,8 +8,8 @@ const
   storeGeo = useGeoStore(),
   storeFormProfile = useFormProfileStore(),
   {
-    lon: lonGeo,
-    lat: latGeo
+    geolocationLon: lonGeo,
+    geolocationLat: latGeo
   } = storeToRefs(storeGeo),
   {
     edit,

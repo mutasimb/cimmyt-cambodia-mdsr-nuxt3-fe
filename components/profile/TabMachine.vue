@@ -56,15 +56,20 @@ const
       </v-col>
     </v-row>
     <v-row><!-- Machine Type, Manufacturer -->
-      <v-col md="6" cols="12" class="py-0">
+      <v-col md="4" cols="12" class="py-0">
         <div class="l-100 primary-neutral-900">{{ $t('Machine Type') }}</div>
         <v-select :disabled="!edit" class="mt-2" v-model="machine.name"
           :items="['Drum Seeder', 'Lonheng Seeder', 'Eli Seeder', 'Thai Kit']" density="compact" variant="outlined" />
       </v-col>
-      <v-col md="6" cols="12" class="py-0">
+      <v-col md="4" cols="12" class="py-0">
         <div class="l-100 primary-neutral-900">{{ $t('Manufacturer') }}</div>
         <v-text-field :disabled="!edit" class="mt-2" v-model="machine.manufacturer" density="compact"
           variant="outlined" />
+      </v-col>
+      <v-col md="4" cols="12" class="py-0">
+        <div class="l-100 primary-neutral-900">{{ $t('Price') }}</div>
+        <v-text-field :disabled="!edit" class="mt-2" v-model="machine.price" density="compact" variant="outlined"
+          placeholder="KHR" type="number" />
       </v-col>
     </v-row>
     <v-row><!-- Machine Type, Manufacturer -->

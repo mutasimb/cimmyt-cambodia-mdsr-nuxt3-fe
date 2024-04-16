@@ -2,10 +2,12 @@
 import { storeToRefs } from 'pinia';
 
 import { useFormProfileStore } from '@/stores/form-profile';
+import { useGeoStore } from '@/stores/geolocation';
 import { useErrorStore } from '@/stores/error';
 
 const
   storeFormProfile = useFormProfileStore(),
+  storeGeo = useGeoStore(),
   storeError = useErrorStore(),
 
   {
@@ -13,10 +15,8 @@ const
     edit,
 
     field,
-
-    geolocationLon,
-    geolocationLat
   } = storeToRefs(storeFormProfile),
+  { geolocationLon, geolocationLat } = storeToRefs(storeGeo),
 
   { message: errorMessage } = storeToRefs(storeError),
 

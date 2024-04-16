@@ -2,10 +2,12 @@
 import { storeToRefs } from 'pinia';
 
 import { useFormProfileStore } from '@/stores/form-profile';
+import { useGeoStore } from '@/stores/geolocation';
 import { useErrorStore } from '@/stores/error';
 
 const
   storeFormProfile = useFormProfileStore(),
+  storeGeo = useGeoStore(),
   storeError = useErrorStore(),
 
   {
@@ -19,19 +21,27 @@ const
     adm2,
     adm3,
     address,
+    details,
     lon,
     lat,
 
-    adm,
-    geolocationLon,
-    geolocationLat
+    adm
   } = storeToRefs(storeFormProfile),
+  { geolocationLon, geolocationLat } = storeToRefs(storeGeo),
 
   { message: errorMessage } = storeToRefs(storeError),
 
   onGetGeo = () => {
     lon.value = toRaw(geolocationLon.value);
     lat.value = toRaw(geolocationLat.value);
+  },
+
+  onCommuneSelection = val => {
+    if (val) storeGeo.getCommuneCentroid({
+      adm1: adm1.value,
+      adm2: adm2.value,
+      adm3: val
+    });
   },
   onEdit = () => { edit.value = true; },
   onCancel = () => {
@@ -104,21 +114,21 @@ const
         <div class="l-100 primary-neutral-900">{{ $t('Province') }}</div>
         <v-select :disabled="!edit" class="mt-2" v-model="adm1" :items="adm.itemsAdm1" clearable density="compact"
           variant="outlined" @update:model-value="() => {
-            adm2 = null
-            adm3 = null
-          }" />
+          adm2 = null
+          adm3 = null
+        }" />
       </v-col>
       <v-col md="4" cols="12" class="py-0">
         <div class="l-100 primary-neutral-900">{{ $t('District') }}</div>
         <v-select :disabled="!edit" class="mt-2" v-model="adm2" :items="adm.itemsAdm2" clearable density="compact"
           variant="outlined" @update:model-value="() => {
-            adm3 = null
-          }" />
+          adm3 = null
+        }" />
       </v-col>
       <v-col md="4" cols="12" class="py-0">
         <div class="l-100 primary-neutral-900">{{ $t('Commune') }}</div>
         <v-select :disabled="!edit" class="mt-2" v-model="adm3" :items="adm.itemsAdm3" clearable density="compact"
-          variant="outlined" @update:model-value="" />
+          variant="outlined" @update:model-value="val => { onCommuneSelection(val); }" />
       </v-col>
     </v-row>
     <v-row><!-- Address -->
@@ -127,12 +137,18 @@ const
         <v-text-field :disabled="!edit" class="mt-2" v-model="address" density="compact" variant="outlined" />
       </v-col>
     </v-row>
+    <v-row v-if="uType === 'Provider'"><!-- Details -->
+      <v-col class="py-0">
+        <div class="l-100 primary-neutral-900">{{ $t('Provider Details') }}</div>
+        <v-text-field :disabled="!edit" class="mt-2" v-model="details" density="compact" variant="outlined" />
+      </v-col>
+    </v-row>
     <v-row><!-- Geolocation -->
       <v-col cols="12">
         <div class="p-100-heavy primary-neutral-900">
           {{ $t('Geolocation') }}
-          <v-btn :disabled="!edit" icon="mdi-crosshairs-gps" size="x-small" class="ml-2" color="primary-700"
-            @click="onGetGeo" />
+          <v-btn v-if="geolocationLon && geolocationLat" :disabled="!edit" icon="mdi-crosshairs-gps" size="x-small"
+            class="ml-2" color="primary-700" @click="onGetGeo" />
         </div>
       </v-col>
     </v-row>

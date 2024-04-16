@@ -38,7 +38,7 @@ const
   onRequest = () => {
     dialogServiceRequest.value = true;
   };
-</script> 
+</script>
 
 <template>
   <div class="d-flex flex-row justify-space-between pa-4"><!-- Provider -->
@@ -65,9 +65,15 @@ const
           <img class="mr-2" src="/img/providers/icon-address.png" alt="Address icon" style="vertical-align: middle;" />
           <p class="d-inline p-200-light text-primary-black">
             {{ selectedProvider.address }}, {{ selectedProvider.adm3 }}, {{ selectedProvider.adm2 }}, {{
-              selectedProvider.adm1 }}
+      selectedProvider.adm1 }}
           </p>
         </div>
+      </div>
+    </div>
+
+    <div class="px-4 my-4"><!-- Provider details -->
+      <div class="p-100-heavy text-primary-neutral-900">{{ $t('Provider Details') }}</div>
+      <div class="p-200-light text-secondary-black">{{ selectedProvider.details || $t('p1_spdetail_nodesc') }}
       </div>
     </div>
 
@@ -87,6 +93,13 @@ const
         density="compact" />
 
       <v-img :src="imageSelectedMachine" width="100%" height="244" cover class="mt-4" />
+    </div>
+
+    <div class="px-4 my-4"><!-- Machine price -->
+      <div class="p-100-heavy text-primary-neutral-900">{{ $t('Price') }}</div>
+      <div class="p-200-light text-secondary-black">{{
+      selectedMachine.price ? `KHR ${selectedMachine.price}` : $t('Not available')
+    }}</div>
     </div>
 
     <div class="px-4 my-4"><!-- Machine description -->
